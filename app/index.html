@@ -11,7 +11,7 @@
   <div>
     <p class="kicker">GRAND THEFT AUTO VI &middot; PLAYSTATION 5 &middot; OFFLINE — NO ONLINE TROPHIES</p>
     <h1>Leonida Trophy Guide <span>&amp; Tracker</span></h1>
-    <p class="sub">All <strong>55 trophies</strong> — 1 platinum, 2 gold, 6 silver, 46 bronze — each with a guide in our own words and the source it was checked against. Platinum estimate: <strong>~200 hours</strong> (PowerPyx, 4/10). One playthrough is enough.</p>
+    <p class="sub">All <strong>55 trophies</strong> — 1 platinum, 2 gold, 6 silver, 46 bronze — each with a guide in our own words and the source it was checked against. <strong>50 guides verified, 2 partial, 3 still unconfirmed</strong> (round-3 re-check, 19 Nov 2026). Platinum estimate: <strong>~200 hours</strong> (PowerPyx, 4/10). One playthrough is enough.</p>
   </div>
   <div class="plat" id="platBox">
     <div class="plat-num" id="platPct">0%</div>
@@ -23,7 +23,9 @@
 </header>
 <nav class="tabs" role="tablist">
   <button id="tabCheck" type="button" class="active">Checklist</button>
+  <button id="tabNext" type="button">Next up queue</button>
   <button id="tabRoad" type="button">Platinum roadmap</button>
+  <button id="tabMiss" type="button">Missable watch</button>
   <button id="tabSources" type="button">Sources &amp; honesty notes</button>
 </nav>
 <section id="viewCheck">
@@ -36,7 +38,7 @@
     <label>Sort <select id="sort"><option value="roadmap">Roadmap order</option><option value="grade">Grade, then roadmap</option><option value="name">Name A–Z</option></select></label>
     <label class="chk"><input id="missOnly" type="checkbox"> Missable only</label>
     <label class="chk"><input id="spoiler" type="checkbox"> Hide story spoilers</label>
-    <button id="export" type="button">Export progress</button>
+    <button id="export" type="button">Export progress + notes</button>
     <button id="copyList" type="button">Copy checklist as text</button>
     <label class="import">Import progress <input id="import" type="file" accept="application/json"></label>
     <button id="reset" type="button">Reset</button>
@@ -44,16 +46,26 @@
   <div class="kindbars" id="kindBars" aria-label="Progress per kind"></div>
   <p class="hint" id="countLine"></p>
   <div id="list"></div>
-  <p class="hint">Tick a trophy when you earn it — progress is saved in this browser (localStorage). The “Next up” line always points at the first unticked trophy in roadmap order.</p>
+  <p class="hint">Tick a trophy when you earn it — progress and your per-trophy notes are saved in this browser (localStorage) and travel with Export/Import. The “Next up” line always points at the first unticked trophy in roadmap order; the Next up queue view ranks the next eight, with anything missable pulled to the front.</p>
+</section>
+<section id="viewNext" hidden>
+  <h2>Next up — your next eight, in the order to do them</h2>
+  <p class="hint">Computed live from your ticks: roadmap order first, but a still-unearned possibly-missable trophy always jumps the queue while its window is open, and the platinum only appears when it is the last one left. Tick anything here and the queue rebuilds itself.</p>
+  <div id="nextQueue"></div>
 </section>
 <section id="viewRoad" hidden>
   <div class="road-head">
     <h2>Roadmap to the platinum — <em>Vice Got a Price!</em></h2>
     <p id="roadTotal"></p>
     <div id="roadWarn"></div>
-    <button id="printBtn" type="button">Print roadmap</button>
+    <button id="printBtn" type="button">Print full guide (progress + roadmap + checklist + missables)</button>
   </div>
   <div id="roadmap"></div>
+</section>
+<section id="viewMiss" hidden>
+  <h2>Missable watch list</h2>
+  <p class="hint">Every trophy any cited source flags as missable or possibly missable, with the moment it can be lost and the stage that guards it. In this set there is exactly one real risk — everything else is listed as checked-and-clear in the Sources view.</p>
+  <div id="missList"></div>
 </section>
 <section id="viewSources" hidden>
   <h2>Sources &amp; honesty notes</h2>
@@ -61,13 +73,25 @@
   <h3>What is verified, what is not</h3>
   <ul>
     <li><strong>Names, descriptions and grades</strong> are the official 55-trophy list as published 2026-11-18 (1 platinum, 2 gold, 6 silver, 46 bronze), cross-checked across PowerPyx, GTABase and Planet GTA 6, which report the same list.</li>
-    <li><strong>49 of 55 guides are verified</strong> against a concrete method in at least one cited guide; <strong>2 are partial</strong> (Strangers &amp; Freaks — more counting strands are still being found; Fair Game — the exact triggering animal is unconfirmed); <strong>4 are unconfirmed</strong> (In The Beginning…, Bad Luck, I Guess, The Truth Is Out There, Ten Pin) — neither cited guide has the method yet, and those entries say so instead of guessing.</li>
-    <li><strong>Missables:</strong> only Positive Mental Attitude is flagged, and only as potentially missable — PowerPyx and GTABase both flag the Chapter 1 balcony meditation, and both say it is not yet confirmed whether the trophy needs it. Every other trophy is marked not missable per the cited guides.</li>
-    <li><strong>Estimates are labelled as estimates:</strong> ~200 hours and 4/10 difficulty come from PowerPyx; per-stage hours in the roadmap are estimates built on that figure and add up to the 200 total.</li>
+    <li><strong>50 of 55 guides are verified</strong> against a concrete method in at least one cited guide. <strong>Round-3 change:</strong> The Truth Is Out There moved from unconfirmed to verified on the evening of 19 November 2026, when PowerPyx's live guide published the full UFO Easter egg method (Kelly County, solo, after 2AM) — its entry now carries the full method.</li>
+    <li><strong>2 are partial</strong> (Strangers &amp; Freaks — Kirk, Kyle, Yago and Pilot Pete are confirmed to count, with their mission lists now in the entry, but more counting strands are still being found; Fair Game — Bret's whole line is mapped, but the exact triggering animal is still unconfirmed).</li>
+    <li><strong>3 are still unconfirmed</strong> (In The Beginning…, Bad Luck, I Guess, Ten Pin) — re-checked in round 3 against PowerPyx's live guide, GTABase, Push Square's WIP guide and SixShore, and no cited source has a verified method for any of them yet. Those entries collect what each source actually says, with guesses labelled as guesses, instead of inventing steps.</li>
+    <li><strong>Missables:</strong> only Positive Mental Attitude is flagged, and only as potentially missable — PowerPyx and GTABase both flag the Chapter 1 balcony meditation, and both say it is not yet confirmed whether the trophy needs it. Every other trophy is marked not missable per the cited guides. The Missable watch view lists the risk, its window and its guard stage.</li>
+    <li><strong>Estimates are labelled as estimates:</strong> ~200 hours and 4/10 difficulty come from PowerPyx; the roadmap's seven stages split that same estimate by kind of work, so per-stage hours still add up to 200.</li>
     <li>Guides are written in our own words from the cited sources. Official trophy names and descriptions are shown as published. No Rockstar artwork, logos or game screenshots are used anywhere in this guide.</li>
   </ul>
 </section>
-<footer><p>Unofficial fan guide. Grand Theft Auto and GTA are trademarks of Rockstar Games; this guide is not affiliated with or endorsed by Rockstar. Trophy data checked 2026-11-19; the game launched 19 November 2026 and early guides are still being corrected — the unconfirmed entries above will change as methods are confirmed.</p></footer>
+<section id="printSheet" hidden aria-hidden="true">
+  <h2>Print summary — GTA VI trophy run</h2>
+  <p id="printSummary"></p>
+  <h3>Roadmap stages</h3>
+  <div id="printRoad"></div>
+  <h3>Missable watch</h3>
+  <div id="printMiss"></div>
+  <h3>Checklist state</h3>
+  <div id="printCheck"></div>
+</section>
+<footer><p>Unofficial fan guide. Grand Theft Auto and GTA are trademarks of Rockstar Games; this guide is not affiliated with or endorsed by Rockstar. Trophy data checked 2026-11-19 (round 3); the game launched 19 November 2026 and early guides are still being corrected — the unconfirmed entries above will change as methods are confirmed.</p></footer>
 <script type="module" src="app.js"></script>
 </body>
 </html>

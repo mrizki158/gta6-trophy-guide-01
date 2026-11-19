@@ -1,4 +1,4 @@
-// GTA VI trophy guide + tracker, round 2 (Node 22, standard library only).
+// GTA VI trophy guide + tracker, round 3 (Node 22, standard library only).
 // The guide is this directory's app/ folder: plain static files a browser
 // opens at app/index.html (ES modules, CSS, no build step), offline: it loads
 // nothing over the network, and its trophy list and guides are
@@ -40,6 +40,41 @@ if (grades.platinum !== 1 || grades.gold !== 2 || grades.silver !== 6 || grades.
 const shots = readdirSync(join(here, 'screenshots')).filter(f => !f.startsWith('.'));
 if (shots.length < 3 || shots.length > 4) throw new Error(`expected 3-4 screenshots, found ${shots.length}`);
 
+// Authored check, round 3: the roadmap is data the app renders blind, so
+// validate it against the trophy list here — every stage must name trophies
+// that exist, no trophy may appear in two stages, every trophy must appear
+// in exactly one stage, stage numbers must run 1..N in order, and the
+// per-stage hour estimates (all labelled estimates) must add up to the
+// roadmap's own total. Also count guide statuses so the handover line can
+// report the verified / partial / unconfirmed split the Sources view claims.
+const roadmap = JSON.parse(readFileSync(join(here, 'app', 'data', 'roadmap.json'), 'utf8'));
+const trophyIds = new Set(trophies.map(t => t.id));
+const staged = new Set();
+let stagedHours = 0;
+roadmap.stages.forEach((stage, i) => {
+  if (stage.n !== i + 1) throw new Error(`roadmap stage ${i} has n=${stage.n}, expected ${i + 1}`);
+  if (!Array.isArray(stage.trophies) || stage.trophies.length === 0) {
+    throw new Error(`roadmap stage ${stage.n} lists no trophies`);
+  }
+  for (const id of stage.trophies) {
+    if (!trophyIds.has(id)) throw new Error(`roadmap stage ${stage.n} names unknown trophy id ${id}`);
+    if (staged.has(id)) throw new Error(`trophy id ${id} appears in two roadmap stages`);
+    staged.add(id);
+  }
+  stagedHours += stage.hours;
+});
+if (staged.size !== trophies.length) {
+  throw new Error(`roadmap stages cover ${staged.size} trophies, expected ${trophies.length}`);
+}
+if (stagedHours !== roadmap.total_estimate_hours) {
+  throw new Error(`stage hours add to ${stagedHours}, roadmap total says ${roadmap.total_estimate_hours}`);
+}
+const statuses = { verified: 0, partial: 0, unconfirmed: 0 };
+for (const t of trophies) {
+  if (!(t.status in statuses)) throw new Error(`trophy ${t.id} has unknown status ${t.status}`);
+  statuses[t.status] += 1;
+}
+
 mkdirSync(out, { recursive: true });
 cpSync(join(here, 'app'), join(out, 'app'), { recursive: true });
 mkdirSync(join(out, 'screenshots'), { recursive: true });
@@ -56,5 +91,7 @@ writeFileSync(
 console.log(
   `gta6-trophy-guide-01: ${trophies.length} trophies `
   + `(${grades.platinum} platinum, ${grades.gold} gold, ${grades.silver} silver, ${grades.bronze} bronze), `
+  + `guides ${statuses.verified} verified / ${statuses.partial} partial / ${statuses.unconfirmed} unconfirmed, `
+  + `roadmap ${roadmap.stages.length} stages / ${stagedHours} h, `
   + `${shots.length} screenshots -> ${out}`,
 );
