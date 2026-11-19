@@ -27,20 +27,24 @@
   <button id="tabSources" type="button">Sources &amp; honesty notes</button>
 </nav>
 <section id="viewCheck">
+  <p class="nextup" id="nextUp"></p>
   <div class="controls">
     <label>Search <input id="q" type="search" placeholder="trophy, mission, keyword…"></label>
     <label>Kind <select id="kind"><option value="all">All kinds</option><option value="story">Story</option><option value="stranger">Strangers &amp; side lines</option><option value="collectible">Collectibles</option><option value="activity">Activities</option><option value="robbery">Robberies</option><option value="exploration">Exploration</option><option value="money">Money &amp; property</option><option value="feat">One-off feats</option><option value="completion">100% completion</option><option value="platinum">Platinum</option></select></label>
     <label>Grade <select id="grade"><option value="all">All grades</option><option value="platinum">Platinum</option><option value="gold">Gold</option><option value="silver">Silver</option><option value="bronze">Bronze</option></select></label>
     <label>Show <select id="earned"><option value="all">All</option><option value="todo">Not earned yet</option><option value="done">Earned</option></select></label>
+    <label>Sort <select id="sort"><option value="roadmap">Roadmap order</option><option value="grade">Grade, then roadmap</option><option value="name">Name A–Z</option></select></label>
     <label class="chk"><input id="missOnly" type="checkbox"> Missable only</label>
     <label class="chk"><input id="spoiler" type="checkbox"> Hide story spoilers</label>
     <button id="export" type="button">Export progress</button>
+    <button id="copyList" type="button">Copy checklist as text</button>
     <label class="import">Import progress <input id="import" type="file" accept="application/json"></label>
     <button id="reset" type="button">Reset</button>
   </div>
+  <div class="kindbars" id="kindBars" aria-label="Progress per kind"></div>
   <p class="hint" id="countLine"></p>
   <div id="list"></div>
-  <p class="hint">Tick a trophy when you earn it — progress is saved in this browser (localStorage). Click a trophy for its full guide, source and missable note.</p>
+  <p class="hint">Tick a trophy when you earn it — progress is saved in this browser (localStorage). The “Next up” line always points at the first unticked trophy in roadmap order.</p>
 </section>
 <section id="viewRoad" hidden>
   <div class="road-head">
@@ -56,10 +60,10 @@
   <div id="sources"></div>
   <h3>What is verified, what is not</h3>
   <ul>
-    <li><strong>Names, descriptions and grades</strong> are the official 55-trophy list as published 2026-11-18 (1 platinum, 2 gold, 6 silver, 46 bronze), cross-checked across PowerPyx and GTABase, which report the same list.</li>
-    <li><strong>48 of 55 guides are verified</strong> against a concrete method in at least one cited guide; <strong>2 are partial</strong> (Strangers &amp; Freaks — remaining qualifying strands still being confirmed; Fair Game — the exact triggering animal is unconfirmed); <strong>5 are unconfirmed</strong> (In The Beginning…, Capital Offense, Bad Luck, I Guess, The Truth Is Out There, Ten Pin) — neither cited guide has the method yet, and those entries say so instead of guessing.</li>
+    <li><strong>Names, descriptions and grades</strong> are the official 55-trophy list as published 2026-11-18 (1 platinum, 2 gold, 6 silver, 46 bronze), cross-checked across PowerPyx, GTABase and Planet GTA 6, which report the same list.</li>
+    <li><strong>49 of 55 guides are verified</strong> against a concrete method in at least one cited guide; <strong>2 are partial</strong> (Strangers &amp; Freaks — more counting strands are still being found; Fair Game — the exact triggering animal is unconfirmed); <strong>4 are unconfirmed</strong> (In The Beginning…, Bad Luck, I Guess, The Truth Is Out There, Ten Pin) — neither cited guide has the method yet, and those entries say so instead of guessing.</li>
     <li><strong>Missables:</strong> only Positive Mental Attitude is flagged, and only as potentially missable — PowerPyx and GTABase both flag the Chapter 1 balcony meditation, and both say it is not yet confirmed whether the trophy needs it. Every other trophy is marked not missable per the cited guides.</li>
-    <li><strong>Estimates are labelled as estimates:</strong> ~200 hours and 4/10 difficulty come from PowerPyx; per-stage hours in the roadmap are estimates built on that figure.</li>
+    <li><strong>Estimates are labelled as estimates:</strong> ~200 hours and 4/10 difficulty come from PowerPyx; per-stage hours in the roadmap are estimates built on that figure and add up to the 200 total.</li>
     <li>Guides are written in our own words from the cited sources. Official trophy names and descriptions are shown as published. No Rockstar artwork, logos or game screenshots are used anywhere in this guide.</li>
   </ul>
 </section>
