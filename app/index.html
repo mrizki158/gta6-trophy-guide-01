@@ -3,23 +3,67 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GTA VI trophy checklist</title>
+<title>GTA VI Trophy Guide &amp; Tracker — All 55 Trophies, Cited</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
-  <h1>GTA VI trophy checklist</h1>
-  <p id="progress">0 of 55 earned</p>
+<header class="mast">
+  <div>
+    <p class="kicker">GRAND THEFT AUTO VI &middot; PLAYSTATION 5 &middot; OFFLINE — NO ONLINE TROPHIES</p>
+    <h1>Leonida Trophy Guide <span>&amp; Tracker</span></h1>
+    <p class="sub">All <strong>55 trophies</strong> — 1 platinum, 2 gold, 6 silver, 46 bronze — each with a guide in our own words and the source it was checked against. Platinum estimate: <strong>~200 hours</strong> (PowerPyx, 4/10). One playthrough is enough.</p>
+  </div>
+  <div class="plat" id="platBox">
+    <div class="plat-num" id="platPct">0%</div>
+    <div class="plat-label" id="platCount">0 of 55 earned</div>
+    <div class="bar"><div id="barFill"></div></div>
+    <div class="plat-eta" id="platEta"></div>
+    <div class="grade-counts" id="gradeCounts"></div>
+  </div>
 </header>
-<div class="controls">
-  <label>Grade <select id="grade"><option value="all">All</option><option value="platinum">Platinum</option><option value="gold">Gold</option><option value="silver">Silver</option><option value="bronze">Bronze</option></select></label>
-  <button id="export" type="button">Export progress</button>
-  <label class="import">Import progress <input id="import" type="file" accept="application/json"></label>
-</div>
-<table>
-  <thead><tr><th>Earned</th><th>Trophy</th><th>Grade</th><th>How to get it</th></tr></thead>
-  <tbody id="rows"></tbody>
-</table>
+<nav class="tabs" role="tablist">
+  <button id="tabCheck" type="button" class="active">Checklist</button>
+  <button id="tabRoad" type="button">Platinum roadmap</button>
+  <button id="tabSources" type="button">Sources &amp; honesty notes</button>
+</nav>
+<section id="viewCheck">
+  <div class="controls">
+    <label>Search <input id="q" type="search" placeholder="trophy, mission, keyword…"></label>
+    <label>Kind <select id="kind"><option value="all">All kinds</option><option value="story">Story</option><option value="stranger">Strangers &amp; side lines</option><option value="collectible">Collectibles</option><option value="activity">Activities</option><option value="robbery">Robberies</option><option value="exploration">Exploration</option><option value="money">Money &amp; property</option><option value="feat">One-off feats</option><option value="completion">100% completion</option><option value="platinum">Platinum</option></select></label>
+    <label>Grade <select id="grade"><option value="all">All grades</option><option value="platinum">Platinum</option><option value="gold">Gold</option><option value="silver">Silver</option><option value="bronze">Bronze</option></select></label>
+    <label>Show <select id="earned"><option value="all">All</option><option value="todo">Not earned yet</option><option value="done">Earned</option></select></label>
+    <label class="chk"><input id="missOnly" type="checkbox"> Missable only</label>
+    <label class="chk"><input id="spoiler" type="checkbox"> Hide story spoilers</label>
+    <button id="export" type="button">Export progress</button>
+    <label class="import">Import progress <input id="import" type="file" accept="application/json"></label>
+    <button id="reset" type="button">Reset</button>
+  </div>
+  <p class="hint" id="countLine"></p>
+  <div id="list"></div>
+  <p class="hint">Tick a trophy when you earn it — progress is saved in this browser (localStorage). Click a trophy for its full guide, source and missable note.</p>
+</section>
+<section id="viewRoad" hidden>
+  <div class="road-head">
+    <h2>Roadmap to the platinum — <em>Vice Got a Price!</em></h2>
+    <p id="roadTotal"></p>
+    <div id="roadWarn"></div>
+    <button id="printBtn" type="button">Print roadmap</button>
+  </div>
+  <div id="roadmap"></div>
+</section>
+<section id="viewSources" hidden>
+  <h2>Sources &amp; honesty notes</h2>
+  <div id="sources"></div>
+  <h3>What is verified, what is not</h3>
+  <ul>
+    <li><strong>Names, descriptions and grades</strong> are the official 55-trophy list as published 2026-11-18 (1 platinum, 2 gold, 6 silver, 46 bronze), cross-checked across PowerPyx and GTABase, which report the same list.</li>
+    <li><strong>48 of 55 guides are verified</strong> against a concrete method in at least one cited guide; <strong>2 are partial</strong> (Strangers &amp; Freaks — remaining qualifying strands still being confirmed; Fair Game — the exact triggering animal is unconfirmed); <strong>5 are unconfirmed</strong> (In The Beginning…, Capital Offense, Bad Luck, I Guess, The Truth Is Out There, Ten Pin) — neither cited guide has the method yet, and those entries say so instead of guessing.</li>
+    <li><strong>Missables:</strong> only Positive Mental Attitude is flagged, and only as potentially missable — PowerPyx and GTABase both flag the Chapter 1 balcony meditation, and both say it is not yet confirmed whether the trophy needs it. Every other trophy is marked not missable per the cited guides.</li>
+    <li><strong>Estimates are labelled as estimates:</strong> ~200 hours and 4/10 difficulty come from PowerPyx; per-stage hours in the roadmap are estimates built on that figure.</li>
+    <li>Guides are written in our own words from the cited sources. Official trophy names and descriptions are shown as published. No Rockstar artwork, logos or game screenshots are used anywhere in this guide.</li>
+  </ul>
+</section>
+<footer><p>Unofficial fan guide. Grand Theft Auto and GTA are trademarks of Rockstar Games; this guide is not affiliated with or endorsed by Rockstar. Trophy data checked 2026-11-19; the game launched 19 November 2026 and early guides are still being corrected — the unconfirmed entries above will change as methods are confirmed.</p></footer>
 <script type="module" src="app.js"></script>
 </body>
 </html>
