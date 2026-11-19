@@ -94,12 +94,12 @@ function render() {
 }
 
 function renderRoadmap() {
-  $('roadTotal').textContent = `${roadmap.title} — ${roadmap.total_estimate_note}`;
+  $('roadTotal').textContent = roadmap.total_estimate_note;
   const w = $('roadWarn'); w.replaceChildren();
   for (const warn of roadmap.warnings) { const p = document.createElement('p'); p.className = 'warn'; p.textContent = warn; w.append(p); }
   const host = $('roadmap'); host.replaceChildren();
   for (const s of roadmap.stages) {
-    const sec = document.createElement('section'); sec.className = 'stage';
+    const sec = document.createElement('section'); sec.className = 'stage'; sec.id = 'stage-' + s.n;
     const h = document.createElement('h3');
     h.textContent = `Stage ${s.n} — ${s.title} · ~${s.hours} h (${s.hours_note})`;
     const ol = document.createElement('ol');
@@ -159,6 +159,6 @@ $('import').addEventListener('change', async e => {
 $('reset').addEventListener('click', () => { if (confirm('Clear all earned ticks?')) { earned = new Set(); save(); render(); } });
 
 renderRoadmap(); renderSources(); render();
-if (params.get('view') === 'roadmap') show('road');
+if (params.get('view') === 'roadmap') { show('road'); if (params.get('stage')) document.getElementById('stage-' + params.get('stage'))?.scrollIntoView(); }
 if (params.get('view') === 'sources') show('sources');
 if (params.get('view') === 'detail') show('check');
