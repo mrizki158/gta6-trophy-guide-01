@@ -10,8 +10,8 @@ const byName = Object.fromEntries(doc.trophies.map(t => [t.name, t]));
 let earned = new Set(JSON.parse(localStorage.getItem(KEY) ?? '[]').filter(n => byName[n]));
 // Demo seed for screenshots (?demo=N ticks the first N story-order trophies, session only)
 if (params.get('demo')) {
-  const n = Math.min(+params.get('demo') || 0, doc.trophies.length);
-  earned = new Set(doc.trophies.slice(0, n).map(t => t.name));
+  const n = Math.min(+params.get('demo') || 0, 12);
+  earned = new Set(doc.trophies.slice(1, 1 + n).map(t => t.name)); // story run so far, not the platinum
 }
 const $ = id => document.getElementById(id);
 const els = { q: $('q'), kind: $('kind'), grade: $('grade'), earned: $('earned'), missOnly: $('missOnly'), spoiler: $('spoiler') };
