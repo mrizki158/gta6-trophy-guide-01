@@ -3,95 +3,66 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GTA VI Trophy Guide &amp; Tracker — All 55 Trophies, Cited</title>
+<title>GTA VI Trophy Guide — Vice Got a Price! | Leonida Tracker</title>
+<meta name="description" content="Offline guide and tracker for all 55 Grand Theft Auto VI trophies on PlayStation 5: cited guides, a 7-stage platinum roadmap, missable watch-list and local progress tracking.">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header class="mast">
-  <div>
-    <p class="kicker">GRAND THEFT AUTO VI &middot; PLAYSTATION 5 &middot; OFFLINE — NO ONLINE TROPHIES</p>
-    <h1>Leonida Trophy Guide <span>&amp; Tracker</span></h1>
-    <p class="sub">All <strong>55 trophies</strong> — 1 platinum, 2 gold, 6 silver, 46 bronze — each with a guide in our own words and the source it was checked against. <strong>50 guides verified, 2 partial, 3 still unconfirmed</strong> (round-3 re-check, 19 Nov 2026). Platinum estimate: <strong>~200 hours</strong> (PowerPyx, 4/10). One playthrough is enough.</p>
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true">VC</span>
+    <div>
+      <h1>LEONIDA TROPHY GUIDE</h1>
+      <p class="tagline">Grand Theft Auto VI &middot; PS5 &middot; 55 trophies &middot; 1 platinum &middot; 2 gold &middot; 6 silver &middot; 46 bronze</p>
+    </div>
   </div>
-  <div class="plat" id="platBox">
-    <div class="plat-num" id="platPct">0%</div>
-    <div class="plat-label" id="platCount">0 of 55 earned</div>
-    <div class="bar"><div id="barFill"></div></div>
-    <div class="plat-eta" id="platEta"></div>
-    <div class="grade-counts" id="gradeCounts"></div>
-  </div>
+  <nav class="views" aria-label="Views">
+    <a href="#/" data-view="home">Checklist</a>
+    <a href="#/roadmap" data-view="roadmap">Roadmap</a>
+    <a href="#/next" data-view="next">Next up</a>
+    <a href="#/missable" data-view="missable">Missables</a>
+    <a href="#/print" data-view="print">Print</a>
+  </nav>
 </header>
-<nav class="tabs" role="tablist">
-  <button id="tabCheck" type="button" class="active">Checklist</button>
-  <button id="tabNext" type="button">Next up queue</button>
-  <button id="tabRoad" type="button">Platinum roadmap</button>
-  <button id="tabMiss" type="button">Missable watch</button>
-  <button id="tabSources" type="button">Sources &amp; honesty notes</button>
-</nav>
-<section id="viewCheck">
-  <p class="nextup" id="nextUp"></p>
-  <div class="controls">
-    <label>Search <input id="q" type="search" placeholder="trophy, mission, keyword…"></label>
-    <label>Kind <select id="kind"><option value="all">All kinds</option><option value="story">Story</option><option value="stranger">Strangers &amp; side lines</option><option value="collectible">Collectibles</option><option value="activity">Activities</option><option value="robbery">Robberies</option><option value="exploration">Exploration</option><option value="money">Money &amp; property</option><option value="feat">One-off feats</option><option value="completion">100% completion</option><option value="platinum">Platinum</option></select></label>
-    <label>Grade <select id="grade"><option value="all">All grades</option><option value="platinum">Platinum</option><option value="gold">Gold</option><option value="silver">Silver</option><option value="bronze">Bronze</option></select></label>
-    <label>Show <select id="earned"><option value="all">All</option><option value="todo">Not earned yet</option><option value="done">Earned</option></select></label>
-    <label>Sort <select id="sort"><option value="roadmap">Roadmap order</option><option value="grade">Grade, then roadmap</option><option value="name">Name A–Z</option></select></label>
-    <label class="chk"><input id="missOnly" type="checkbox"> Missable only</label>
-    <label class="chk"><input id="spoiler" type="checkbox"> Hide story spoilers</label>
-    <button id="export" type="button">Export progress + notes</button>
-    <button id="copyList" type="button">Copy checklist as text</button>
-    <label class="import">Import progress <input id="import" type="file" accept="application/json"></label>
-    <button id="reset" type="button">Reset</button>
+
+<section class="progress-panel" aria-label="Progress">
+  <div class="progress-head">
+    <div>
+      <strong id="progressText">0 / 55 trophies</strong>
+      <span id="gradeCounts" class="grade-counts"></span>
+    </div>
+    <div class="eta" id="etaText">Platinum ETA: about 200 hours remaining</div>
   </div>
-  <div class="kindbars" id="kindBars" aria-label="Progress per kind"></div>
-  <p class="hint" id="countLine"></p>
-  <div id="list"></div>
-  <p class="hint">Tick a trophy when you earn it — progress and your per-trophy notes are saved in this browser (localStorage) and travel with Export/Import. The “Next up” line always points at the first unticked trophy in roadmap order; the Next up queue view ranks the next eight, with anything missable pulled to the front.</p>
-</section>
-<section id="viewNext" hidden>
-  <h2>Next up — your next eight, in the order to do them</h2>
-  <p class="hint">Computed live from your ticks: roadmap order first, but a still-unearned possibly-missable trophy always jumps the queue while its window is open, and the platinum only appears when it is the last one left. Tick anything here and the queue rebuilds itself.</p>
-  <div id="nextQueue"></div>
-</section>
-<section id="viewRoad" hidden>
-  <div class="road-head">
-    <h2>Roadmap to the platinum — <em>Vice Got a Price!</em></h2>
-    <p id="roadTotal"></p>
-    <div id="roadWarn"></div>
-    <button id="printBtn" type="button">Print full guide (progress + roadmap + checklist + missables)</button>
+  <div class="bar" role="progressbar" aria-label="Trophy progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progressBarWrap">
+    <div class="bar-fill" id="progressFill" style="width:0%"></div>
   </div>
-  <div id="roadmap"></div>
+  <p class="fineprint">Progress is saved only in this browser (localStorage). Nothing is uploaded. Spoiler mode hides story trophy names until you earn them.</p>
 </section>
-<section id="viewMiss" hidden>
-  <h2>Missable watch list</h2>
-  <p class="hint">Every trophy any cited source flags as missable or possibly missable, with the moment it can be lost and the stage that guards it. In this set there is exactly one real risk — everything else is listed as checked-and-clear in the Sources view.</p>
-  <div id="missList"></div>
+
+<section class="controls" aria-label="Tracker controls">
+  <label class="search-label">Search <input id="search" type="search" placeholder="Search a trophy, mission or keyword…" autocomplete="off"></label>
+  <div class="chips" id="kindChips" role="group" aria-label="Filter by kind"></div>
+  <div class="chips" id="gradeChips" role="group" aria-label="Filter by grade"></div>
+  <div class="toggles">
+    <label class="toggle"><input type="checkbox" id="spoilerToggle"> Spoiler-safe: hide story trophies until earned</label>
+    <label class="toggle"><input type="checkbox" id="earnedOnly"> Earned only</label>
+    <label class="toggle"><input type="checkbox" id="unearnedOnly"> To-do only</label>
+  </div>
+  <div class="io">
+    <button id="exportBtn" type="button">Export progress (JSON)</button>
+    <label class="import-label">Import progress <input id="importFile" type="file" accept=".json,application/json"></label>
+    <button id="resetBtn" type="button">Reset tracker</button>
+    <a class="demo-link" href="?demo=1#/">Demo: tick a few story trophies</a>
+  </div>
 </section>
-<section id="viewSources" hidden>
-  <h2>Sources &amp; honesty notes</h2>
-  <div id="sources"></div>
-  <h3>What is verified, what is not</h3>
-  <ul>
-    <li><strong>Names, descriptions and grades</strong> are the official 55-trophy list as published 2026-11-18 (1 platinum, 2 gold, 6 silver, 46 bronze), cross-checked across PowerPyx, GTABase and Planet GTA 6, which report the same list.</li>
-    <li><strong>50 of 55 guides are verified</strong> against a concrete method in at least one cited guide. <strong>Round-3 change:</strong> The Truth Is Out There moved from unconfirmed to verified on the evening of 19 November 2026, when PowerPyx's live guide published the full UFO Easter egg method (Kelly County, solo, after 2AM) — its entry now carries the full method.</li>
-    <li><strong>2 are partial</strong> (Strangers &amp; Freaks — Kirk, Kyle, Yago and Pilot Pete are confirmed to count, with their mission lists now in the entry, but more counting strands are still being found; Fair Game — Bret's whole line is mapped, but the exact triggering animal is still unconfirmed).</li>
-    <li><strong>3 are still unconfirmed</strong> (In The Beginning…, Bad Luck, I Guess, Ten Pin) — re-checked in round 3 against PowerPyx's live guide, GTABase, Push Square's WIP guide and SixShore, and no cited source has a verified method for any of them yet. Those entries collect what each source actually says, with guesses labelled as guesses, instead of inventing steps.</li>
-    <li><strong>Missables:</strong> only Positive Mental Attitude is flagged, and only as potentially missable — PowerPyx and GTABase both flag the Chapter 1 balcony meditation, and both say it is not yet confirmed whether the trophy needs it. Every other trophy is marked not missable per the cited guides. The Missable watch view lists the risk, its window and its guard stage.</li>
-    <li><strong>Estimates are labelled as estimates:</strong> ~200 hours and 4/10 difficulty come from PowerPyx; the roadmap's seven stages split that same estimate by kind of work, so per-stage hours still add up to 200.</li>
-    <li>Guides are written in our own words from the cited sources. Official trophy names and descriptions are shown as published. No Rockstar artwork, logos or game screenshots are used anywhere in this guide.</li>
-  </ul>
-</section>
-<section id="printSheet" hidden aria-hidden="true">
-  <h2>Print summary — GTA VI trophy run</h2>
-  <p id="printSummary"></p>
-  <h3>Roadmap stages</h3>
-  <div id="printRoad"></div>
-  <h3>Missable watch</h3>
-  <div id="printMiss"></div>
-  <h3>Checklist state</h3>
-  <div id="printCheck"></div>
-</section>
-<footer><p>Unofficial fan guide. Grand Theft Auto and GTA are trademarks of Rockstar Games; this guide is not affiliated with or endorsed by Rockstar. Trophy data checked 2026-11-19 (round 3); the game launched 19 November 2026 and early guides are still being corrected — the unconfirmed entries above will change as methods are confirmed.</p></footer>
-<script type="module" src="app.js"></script>
+
+<main id="view" aria-live="polite"></main>
+
+<footer class="footer">
+  <p><strong>Sources for the official list:</strong> Exophase / PSNProfiles via PlanetGTA6, and HowToVideoGame for the 28 hidden trophies. <strong>Guides:</strong> PowerPyx and Push Square, cited beside every trophy. This guide is written in its own words; the official trophy names and descriptions are shown as PlayStation publishes them.</p>
+  <p>Fan-made tracker. Not affiliated with Rockstar Games. No Rockstar logo or artwork is used. Works offline: it loads only its own files and fetches nothing at run time.</p>
+  <p class="fineprint">Platinum estimate: about 200 hours (PowerPyx, difficulty 4/10); Push Square puts it at up to 300 hours or more. One playthrough is enough, and there are no online trophies. Cheats disable trophies and saving.</p>
+</footer>
+<script src="app.js"></script>
 </body>
 </html>
